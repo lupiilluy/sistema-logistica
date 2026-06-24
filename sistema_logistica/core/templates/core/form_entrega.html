@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Atualizar Entrega</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: 0 auto; }
+        .card { border: 1px solid #ddd; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .info { margin-bottom: 20px; background: #f9f9f9; padding: 10px; border-radius: 4px; }
+        label { display: block; margin-top: 10px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 8px; margin-top: 5px; box-sizing: border-box; }
+        button { background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-top: 20px; font-size: 16px; }
+        a { color: #666; text-decoration: none; margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Atualizar Status</h1>
+    
+    <div class="card">
+        <div class="info">
+            <p><strong>Entrega:</strong> {{ entrega.codigo_rastreio }}</p>
+            <p><strong>Destino:</strong> {{ entrega.endereco_destino }}</p>
+            <p><strong>Cliente:</strong> {{ entrega.cliente.nome }}</p>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+            
+            {{ form.as_p }}
+            
+            <button type="submit">Salvar Alterações</button>
+            <a href="{% url 'home' %}">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Entregas</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .status-PENDENTE { color: orange; font-weight: bold; }
+        .status-ENTREGUE { color: green; font-weight: bold; }
+    </style>
+</head>
+<body>
+    
+{% if messages %}
+    <div style="padding: 10px; margin-bottom: 20px; border-radius: 5px; text-align: center;">
+        {% for message in messages %}
+            <div style="background-color: #d4edda; color: #155724; padding: 10px; border: 1px solid #c3e6cb;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+    
+    <h1>Painel de Entregas</h1>
+    
+    <table>
+        <thead>
+            
+            <tr>
+                <th>Código</th>
+                <th>Cliente</th>
+                <th>Destino</th>
+                <th>Status</th>
+                <th>Capacidade (kg/un)</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entrega in entregas %}
+            <tr>
+                <td>{{ entrega.codigo_rastreio }}</td>
+                <td>{{ entrega.cliente.nome }}</td>
+                <td>{{ entrega.endereco_destino }}</td>
+                <td class="status-{{ entrega.status }}">{{ entrega.get_status_display }}</td>
+                <td>{{ entrega.capacidade_necessaria }}</td>
+                <td> <a href="{% url 'editar_entrega' entrega.id %}">Atualizar</a>
+</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">Nenhuma entrega cadastrada.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

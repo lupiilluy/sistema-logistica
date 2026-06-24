@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Rastreamento de Encomendas</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f6f9; display: flex; justify-content: center; padding-top: 50px; }
+        .container { background: white; padding: 40px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 100%; max-width: 500px; }
+        h1 { text-align: center; color: #2c3e50; }
+        .search-box { display: flex; gap: 10px; margin-bottom: 30px; }
+        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 16px; }
+        button { background-color: #007bff; color: white; border: none; padding: 12px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        button:hover { background-color: #0056b3; }
+        
+        /* Estilo do resultado */
+        .result { border-top: 1px solid #eee; padding-top: 20px; }
+        .status-badge { display: inline-block; padding: 5px 10px; border-radius: 15px; font-size: 14px; font-weight: bold; margin-bottom: 15px; }
+        .PENDENTE { background: #fff3cd; color: #856404; }
+        .EM_TRANSITO { background: #cce5ff; color: #004085; }
+        .ENTREGUE { background: #d4edda; color: #155724; }
+        
+        .detail-row { display: flex; justify-content: space-between; margin-bottom: 10px; color: #555; }
+        .error { color: red; text-align: center; font-weight: bold; }
+        .back-link { display: block; text-align: center; margin-top: 20px; color: #666; text-decoration: none; font-size: 14px;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Rastreie sua Encomenda</h1>
+    
+    <form method="get" class="search-box">
+        <input type="text" name="codigo" placeholder="Digite seu código (ex: CX-01)" value="{{ codigo|default:'' }}" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if codigo %}
+        {% if entrega %}
+            <div class="result">
+                <div style="text-align: center;">
+                    <span class="status-badge {{ entrega.status }}">{{ entrega.get_status_display }}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Previsão de Entrega:</strong>
+                    <span>{{ entrega.data_entrega_prevista|date:"d/m/Y" }}</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Destino:</strong>
+                    <span>{{ entrega.endereco_destino }}</span>
+                </div>
+
+                {% if entrega.observacoes %}
+                <div style="margin-top: 15px; background: #f9f9f9; padding: 10px; border-radius: 5px; font-size: 14px;">
+                    <strong>Observações:</strong><br>
+                    {{ entrega.observacoes }}
+                </div>
+                {% endif %}
+            </div>
+        {% else %}
+            <p class="error">Nenhuma entrega encontrada com o código "{{ codigo }}".</p>
+        {% endif %}
+    {% endif %}
+
+    <a href="{% url 'home' %}" class="back-link">Área de Funcionários</a>
+</div>
+
+</body>
+</html>
