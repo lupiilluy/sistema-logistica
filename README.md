@@ -9,7 +9,7 @@
 ## Desenvolvedores
 
 **Ana Luiza Martins, Clara Gentil, Carolina Gentil, Matheus David, Jeovana Salles**
-*Projeto Integrador - Linguagem Técnica de Programação (Python)*
+*Projeto Integrador - Laboratório de Inovação II*
 
 ---
 
@@ -117,4 +117,3 @@ Acesse no navegador:
 
 Sistema: http://127.0.0.1:8000/
 Painel Admin: http://127.0.0.1:8000/admin/
-

@@ -3,7 +3,7 @@ name = "sistema-logistica"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "pablosousaa",email = "pabloantonio.msms@gmail.com"}
+    {name = "lupiilluy",email = "analuizams.soares@gmail.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.10"
